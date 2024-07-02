@@ -5,22 +5,19 @@ URL = 'http://localhost:4000'
 
 class User:
     def __init__(self, token) -> None:
-        response = requests.post(f'{URL}/check', {'sessionToken': token})
-        response_dict = json.loads(response.text)
-
-        if response_dict['error']:
-            raise Exception('Invalid session token')
-        else:
-            self.username = response_dict["data"]
+        self.token = token
+        if not self.is_valid():
+            raise Exception('Invalid session token') 
     
-    def __init__(self, token) -> None:
-        response = requests.post(f'{URL}/check', {'sessionToken': token})
+    def is_valid(self) -> bool:
+        response = requests.post(f'{URL}/check', {'sessionToken': self.token})
         response_dict = json.loads(response.text)
 
-        if response_dict['error']:
-            raise Exception('Invalid session token')
-        else:
-            self.username = response_dict["data"]
+        if response_dict['error'] or not response_dict["data"]: return False
+        
+        self.username = response_dict["data"]
+        
+        return True
     
     def profile(self):
         return {
