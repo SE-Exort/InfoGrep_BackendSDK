@@ -10,24 +10,26 @@ class User:
             raise Exception('Invalid session token') 
     
     def is_valid(self) -> bool:
-        response = requests.post(f'{URL}/check', {'sessionToken': self.token})
+        response = requests.post(f'{URL}/check', json={'sessionToken': self.token})
         response_dict = json.loads(response.text)
 
         if response_dict['error'] or not response_dict["data"]: return False
         
-        self.username = response_dict["data"]
+        self.username = response_dict["data"]['username']
+        self.user_uuid = response_dict["data"]['user_uuid']
         
         return True
     
     def profile(self):
         return {
-            'username': self.username
+            'username': self.username,
+            'user_uuid': self.user_uuid
         }
 
 class Authentication:
     @staticmethod
     def login(username, password):
-        response = requests.post(f'{URL}/login', {'username': username, 'password': password})
+        response = requests.post(f'{URL}/login', json={'username': username, 'password': password})
         response_dict = json.loads(response.text)
 
         if response_dict['error']:
@@ -38,7 +40,7 @@ class Authentication:
     
     @staticmethod
     def register(username, password):
-        response = requests.post(f'{URL}/register', {'username': username, 'password': password})
+        response = requests.post(f'{URL}/register', json={'username': username, 'password': password})
         response_dict = json.loads(response.text)
 
         if response_dict['error']:
