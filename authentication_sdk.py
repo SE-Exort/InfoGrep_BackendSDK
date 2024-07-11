@@ -11,18 +11,18 @@ class User:
     
     def is_valid(self) -> bool:
         response = requests.post(f'{URL}/check', json={'sessionToken': self.token})
-        response_dict = json.loads(response.text)
+        response_dict = json.loads(response.text)        
 
-        if response_dict['error'] or not response_dict["data"]: return False
-        
-        self.username = response_dict["data"]['username']
-        self.user_uuid = response_dict["data"]['user_uuid']
+        if "error" in response_dict: return False
+                
+        #self.username = response_dict["data"]['username']
+        self.user_uuid = response_dict["data"]['id']
         
         return True
     
     def profile(self):
         return {
-            'username': self.username,
+            #'username': self.username,
             'user_uuid': self.user_uuid
         }
 
