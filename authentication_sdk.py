@@ -1,5 +1,6 @@
 import requests
 import json
+from fastapi import HTTPException
 
 URL = 'http://localhost:4000'
 
@@ -7,7 +8,7 @@ class User:
     def __init__(self, token) -> None:
         self.token = token
         if not self.is_valid():
-            raise Exception('Invalid session token') 
+            raise HTTPException(status_code= 401, detail="User or session cookie invalid") 
     
     def is_valid(self) -> bool:
         response = requests.post(f'{URL}/check', json={'sessionToken': self.token})
