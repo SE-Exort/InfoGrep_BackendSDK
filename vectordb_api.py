@@ -7,7 +7,7 @@ vectordb_port = '8800'
 vectordb_api_url = ''
 
 vectordb_service_url = vectordb_schema + vectordb_host + ':' + vectordb_port + vectordb_api_url
-def vectordb_flush(collection: str):
+def vectordb_flush(collection: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/flush"
     body = {
         "collection": collection
@@ -15,7 +15,8 @@ def vectordb_flush(collection: str):
     resp = requests.post(url=endpoint_url, json=body)
     return resp
 
-def vectordb_insert(collection: str, vector: List, args = Union[None|Dict]):
+def vectordb_insert(collection: str, vector: List, args: Union[None|Dict], 
+                    chatroom_uuid: str, cookie: str):
     """
     For the test collection, vector needs to be 256 len, and use 
     {
@@ -32,7 +33,8 @@ def vectordb_insert(collection: str, vector: List, args = Union[None|Dict]):
     resp = requests.post(url=endpoint_url, json=body)
     return resp
 
-def vectordb_search(collection: str, vector: List, args = Union[None|Dict]):
+def vectordb_search(collection: str, vector: List, args: Union[None|Dict], 
+                    chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/search"
     body = {
         "collection": collection,
@@ -42,7 +44,7 @@ def vectordb_search(collection: str, vector: List, args = Union[None|Dict]):
     resp = requests.post(url=endpoint_url, json=body)
     return resp
 
-def vectordb_get_collection(collection: str):
+def vectordb_get_collection(collection: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/setting/collection"
     body = {
         "collection": collection
@@ -50,7 +52,7 @@ def vectordb_get_collection(collection: str):
     resp = requests.get(url=endpoint_url, json=body)
     return resp
 
-def vectordb_get_num_data(collection: str):
+def vectordb_get_num_data(collection: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/setting/num_data"
     body = {
         "collection": collection
@@ -58,7 +60,7 @@ def vectordb_get_num_data(collection: str):
     resp = requests.get(url=endpoint_url, json=body)
     return resp
 
-def vectordb_delete_data(collection: str, expr: str):
+def vectordb_delete_data(collection: str, expr: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/delete/data"
     body = {
         "collection": collection,
@@ -67,7 +69,7 @@ def vectordb_delete_data(collection: str, expr: str):
     resp = requests.delete(url=endpoint_url, json=body)
     return resp
 
-def vectordb_delete_collection(collection: str):
+def vectordb_delete_collection(collection: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/delete/collection"
     body = {
         "collection": collection
