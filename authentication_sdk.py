@@ -1,9 +1,9 @@
+from service_endpoints import *
 import requests
 import json
 from fastapi import HTTPException
 
-URL = 'http://localhost:4000'
-
+URL = service_schema+auth_host+ ':' + auth_port
 class User:
     def __init__(self, token) -> None:
         self.token = token

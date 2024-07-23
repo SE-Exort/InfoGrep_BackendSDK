@@ -1,12 +1,8 @@
+from service_endpoints import *
 import requests
 from fastapi import HTTPException
 
-chatroomschema = 'http://'
-chatroomhost = '127.0.0.1'
-chatroomport = '8003'
-chatroomapiurl = '/api'
-
-chatroomserviceurl = chatroomschema + chatroomhost + ':' + chatroomport + chatroomapiurl
+chatroomserviceurl = service_schema + chatroom_host + ':' + chatroom_port + chatroom_apiurl
 def get_userInRoom(chatroom_uuid, cookie):
     response = requests.get(url = chatroomserviceurl + '/userinroom', params={'chatroom_uuid': chatroom_uuid, 'cookie': cookie})
     if response.status_code != 200:

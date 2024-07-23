@@ -1,11 +1,8 @@
+from service_endpoints import *
 import requests
 
-fmsschema = 'http://'
-fmshost = '127.0.0.1'
-fmsport = '8002'
-fmsapiurl = '/api'
 
-fmsserviceurl = fmsschema + fmshost + ':' + fmsport + fmsapiurl
+fmsserviceurl = service_schema + fms_host + ':' + fms_port + fms_apiurl
 def fms_getFileList(chatroom_uuid, cookie):
     return requests.get(url = fmsserviceurl + '/filelist', params={'chatroom_uuid': chatroom_uuid, 'cookie': cookie})
 
