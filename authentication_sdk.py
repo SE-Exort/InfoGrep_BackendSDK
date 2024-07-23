@@ -33,6 +33,7 @@ class Authentication:
         response = requests.post(f'{URL}/login', json={'username': username, 'password': password})
         response_dict = json.loads(response.text)
 
+        print(response_dict)
         if response_dict['error']:
             raise Exception(response_dict['status'])
         else:
