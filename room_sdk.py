@@ -1,4 +1,4 @@
-from service_endpoints import *
+from .service_endpoints import *
 import requests
 from fastapi import HTTPException
 

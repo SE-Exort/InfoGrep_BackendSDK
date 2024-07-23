@@ -1,4 +1,4 @@
-from service_endpoints import *
+from .service_endpoints import *
 import requests
 
 aiserviceurl = service_schema + ai_host + ':' + ai_port + ai_apiurl
