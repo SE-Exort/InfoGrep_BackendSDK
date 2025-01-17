@@ -2,7 +2,7 @@ from .service_endpoints import *
 import requests
 
 
-fmsserviceurl = service_schema + fms_host + ':' + fms_port + fms_apiurl
+fmsserviceurl = service_schema + fms_host + fms_apiurl
 def fms_getFileList(chatroom_uuid, cookie):
     return requests.get(url = fmsserviceurl + '/filelist', params={'chatroom_uuid': chatroom_uuid, 'cookie': cookie})
 
