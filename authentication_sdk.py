@@ -3,7 +3,7 @@ import requests
 import json
 from fastapi import HTTPException
 
-URL = service_schema+auth_host+ ':' + auth_port
+URL = service_schema + auth_host + auth_apiurl
 class User:
     def __init__(self, token) -> None:
         self.token = token

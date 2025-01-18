@@ -2,7 +2,7 @@ from .service_endpoints import *
 import requests
 from typing import List, Union, Dict
 
-vectordb_service_url = service_schema + vectordb_host + ':' + vectordb_port + vectordb_api_url
+vectordb_service_url = service_schema + vectordb_host + vectordb_api_url
 def vectordb_flush(collection: str, chatroom_uuid: str, cookie: str):
     endpoint_url = f"{vectordb_service_url}/flush"
     body = {
