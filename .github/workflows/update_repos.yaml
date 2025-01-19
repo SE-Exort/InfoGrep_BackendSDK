@@ -1,0 +1,29 @@
+name: Update All Services Repo & GHCR Image
+
+on:
+  push:
+    branches: ['main']
+
+env:
+  REGISTRY: ghcr.io
+  VIDEO_SERVICE_REPO: se-exort/InfoGrep-VideoService
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  video-service-image-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          token: ${{ secrets.CI_TOKEN }}
+          repository: ${{ env.VIDEO_SERVICE_REPO }}
+      - name: Backend SDK Submodule Update Commit
+        uses: SE-Exort/InfoGrep_BackendSDK/.github/workflows/composite-actions/update_submodule
+      
