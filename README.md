@@ -16,5 +16,3 @@ GET     parsing_status
 ## Vector Management Service
 
 Please refer to [this repo](https://github.com/SE-Exort/InfoGrep-VectorMangementService/blob/main/README.md) for endpoint details
-
-Test

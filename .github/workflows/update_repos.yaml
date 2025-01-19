@@ -24,10 +24,15 @@ jobs:
           submodules: 'recursive'
           token: ${{ secrets.CI_TOKEN }}
           repository: ${{ env.VIDEO_SERVICE_REPO }}
-      - name: test
+      - name: Backend SDK Submodule Update
         run: |
-          echo ${{ github.workspace }}
-          ls ${{ github.workspace }}
-      # - name: Backend SDK Submodule Update Commit
-      #   uses: ${{ github.workspace }}/.github/workflows/composite-actions/update_submodule@latest
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+      - name: Commit Submodule Update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m "Updating Backend SDK submodule"
+          git push || echo "no changes made"
       
