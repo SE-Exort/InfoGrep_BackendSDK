@@ -25,5 +25,5 @@ jobs:
           token: ${{ secrets.CI_TOKEN }}
           repository: ${{ env.VIDEO_SERVICE_REPO }}
       - name: Backend SDK Submodule Update Commit
-        uses: SE-Exort/InfoGrep_BackendSDK/.github/workflows/composite-actions/update_submodule
+        uses: SE-Exort/InfoGrep_BackendSDK/.github/workflows/composite-actions/update_submodule@latest
       
