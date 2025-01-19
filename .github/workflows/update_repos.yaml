@@ -28,6 +28,6 @@ jobs:
         run: |
           echo ${{ github.workspace }}
           ls ${{ github.workspace }}
-      - name: Backend SDK Submodule Update Commit
-        uses: ${{ github.workspace }}/.github/workflows/composite-actions/update_submodule@latest
+      # - name: Backend SDK Submodule Update Commit
+      #   uses: ${{ github.workspace }}/.github/workflows/composite-actions/update_submodule@latest
       
