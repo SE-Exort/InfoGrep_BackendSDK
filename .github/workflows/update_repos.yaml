@@ -24,6 +24,10 @@ jobs:
           submodules: 'recursive'
           token: ${{ secrets.CI_TOKEN }}
           repository: ${{ env.VIDEO_SERVICE_REPO }}
+      - name: test
+        run: |
+          echo ${{ github.workspace }}
+          ls ${{ github.workspace }}
       - name: Backend SDK Submodule Update Commit
-        uses: SE-Exort/InfoGrep_BackendSDK/.github/workflows/composite-actions/update_submodule@latest
+        uses: ${{ github.workspace }}/.github/workflows/composite-actions/update_submodule@latest
       
