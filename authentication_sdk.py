@@ -5,13 +5,14 @@ from fastapi import HTTPException
 
 URL = service_schema + auth_host + auth_apiurl
 class User:
-    def __init__(self, token) -> None:
+    def __init__(self, token, headers) -> None:
         self.token = token
+        self.headers = headers
         if not self.is_valid():
             raise HTTPException(status_code= 401, detail="User or session cookie invalid") 
     
     def is_valid(self) -> bool:
-        response = requests.post(f'{URL}/check', json={'sessionToken': self.token})
+        response = requests.post(f'{URL}/check', json={'sessionToken': self.token}, headers=self.headers)
         response_dict = json.loads(response.text)        
 
         if "error" in response_dict: return False
@@ -29,8 +30,8 @@ class User:
 
 class Authentication:
     @staticmethod
-    def login(username, password):
-        response = requests.post(f'{URL}/login', json={'username': username, 'password': password})
+    def login(username, password, headers):
+        response = requests.post(f'{URL}/login', json={'username': username, 'password': password}, headers=headers)
         response_dict = json.loads(response.text)
 
         print(response_dict)
@@ -41,8 +42,8 @@ class Authentication:
         
     
     @staticmethod
-    def register(username, password):
-        response = requests.post(f'{URL}/register', json={'username': username, 'password': password})
+    def register(username, password, headers):
+        response = requests.post(f'{URL}/register', json={'username': username, 'password': password}, headers=headers)
         response_dict = json.loads(response.text)
 
         if response_dict['error']:
