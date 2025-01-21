@@ -1,4 +1,5 @@
 from .service_endpoints import *
+from .util import header_cleanup
 import requests
 import json
 from fastapi import HTTPException
@@ -7,7 +8,7 @@ URL = service_schema + auth_host + auth_apiurl
 class User:
     def __init__(self, token, headers) -> None:
         self.token = token
-        self.headers = headers
+        self.headers = header_cleanup(headers)
         if not self.is_valid():
             raise HTTPException(status_code= 401, detail="User or session cookie invalid") 
     
