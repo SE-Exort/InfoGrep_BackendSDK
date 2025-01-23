@@ -6,7 +6,7 @@ from fastapi import HTTPException
 
 URL = service_schema + auth_host + auth_apiurl
 class User:
-    def __init__(self, token, headers) -> None:
+    def __init__(self, token, headers={}) -> None:
         self.token = token
         self.headers = header_cleanup(headers)
         if not self.is_valid():
@@ -31,7 +31,7 @@ class User:
 
 class Authentication:
     @staticmethod
-    def login(username, password, headers):
+    def login(username, password, headers={}):
         response = requests.post(f'{URL}/login', json={'username': username, 'password': password}, headers=headers)
         response_dict = json.loads(response.text)
 
@@ -43,7 +43,7 @@ class Authentication:
         
     
     @staticmethod
-    def register(username, password, headers):
+    def register(username, password, headers={}):
         response = requests.post(f'{URL}/register', json={'username': username, 'password': password}, headers=headers)
         response_dict = json.loads(response.text)
 
