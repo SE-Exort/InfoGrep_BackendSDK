@@ -1,4 +1,4 @@
-def header_cleanup(headers):
+def header_cleanup(headers={}):
     if not isinstance(headers, dict):
         headers = dict(headers)
     
