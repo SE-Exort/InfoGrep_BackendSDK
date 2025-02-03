@@ -10,11 +10,6 @@ auth_port = '4000'
 auth_host = os.environ.get("AUTH_SERVICE_HOST", f"{localhost_url}:{auth_port}")
 auth_apiurl = ''
 
-#Parsing Service
-parse_port = '8001'
-parse_host = os.environ.get("PARSING_SERVICE_HOST", f"{localhost_url}:{parse_port}")
-parse_apiurl = '/api'
-
 #File Management and Storage Service
 fms_port = '8002'
 fms_host = os.environ.get("FILE_MANAGEMENT_SERVICE_HOST", f"{localhost_url}:{fms_port}")
@@ -31,8 +26,8 @@ ai_host = os.environ.get("AI_SERVICE_HOST", f"{localhost_url}:{ai_port}")
 ai_apiurl = '/api'
 
 #Vector Storage Service
-vectordb_port = '8800'
-vectordb_host = os.environ.get("VECTOR_MANAGEMENT_SERVICE_HOST", f"{localhost_url}:{vectordb_port}")
+vectordb_port = '19530'
+vectordb_host = os.environ.get("MILVUS_SERVICE_HOST", f"{localhost_url}:{vectordb_port}")
 vectordb_api_url = ''
 
 #Video Service
