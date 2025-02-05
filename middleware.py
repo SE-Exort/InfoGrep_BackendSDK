@@ -38,3 +38,5 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 extra={
                     "status_code": status_code,
                 })
+
+        return response
