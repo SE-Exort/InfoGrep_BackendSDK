@@ -1,1 +1,5 @@
 requests
+fastapi
+elasticsearch
+python-json-logger
+pydantic
