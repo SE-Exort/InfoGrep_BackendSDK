@@ -9,7 +9,7 @@ from elastic_transport import (
     ConnectionError as EsConnectionError, 
 )
 
-from service_endpoints import es_port, es_host, es_password, es_username
+from ..service_endpoints import es_port, es_host, es_password, es_username
 
 class ElasticSearchConfig(BaseModel):
     port: int

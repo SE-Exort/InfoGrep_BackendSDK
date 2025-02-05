@@ -2,7 +2,7 @@ from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from infogrep_logger.logger import Logger
+from .infogrep_logger.logger import Logger
 
 class TracingMiddleware(BaseHTTPMiddleware):
     def __init__(self, app: ASGIApp):
@@ -25,7 +25,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         
         response = await call_next(request)
         status_code = str(response.status_code)
-        if status_code.startswith('4') or status_code.startswith(5):
+        if status_code.startswith('4') or status_code.startswith('5'):
             self.logger.error(
                 msg=f"ERROR: Request sent by {request.client.host} to {request.url} failed",
                 extra={
