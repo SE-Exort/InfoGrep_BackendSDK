@@ -28,14 +28,14 @@ class LoggingMiddleware(BaseHTTPMiddleware):
             self.logger.error(
                 msg=f"ERROR: Request sent by {request.client.host} to {request.url} failed",
                 extra={
-                    "status_code": status_code,
+                    "status_code": response.status_code,
                     "content": response.body()
                 })
         elif response.status_code == 200:
             self.logger.info(
                 msg=f"Request sent by {request.client.host} to {request.url} completed",
                 extra={
-                    "status_code": status_code,
+                    "status_code": response.status_code,
                 })
 
         return response
