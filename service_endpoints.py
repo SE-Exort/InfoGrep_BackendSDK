@@ -34,3 +34,9 @@ vectordb_api_url = ''
 video_port = '8879'
 video_host = os.environ.get("VIDEO_SERVICE_HOST", f"{localhost_url}:{video_port}")
 video_api_url = ''
+
+#Elasticsearch Service
+es_port = os.environ.get("ES_SERVICE_PORT", 9200)
+es_host = os.environ.get("ES_SERVICE_HOST", "localhost")
+es_username = os.environ.get("ES_SERVICE_USER", "elastic")
+es_password = os.environ.get("ES_SERVICE_PASSWORD", "changeme")
