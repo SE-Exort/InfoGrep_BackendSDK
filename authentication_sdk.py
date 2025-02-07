@@ -19,7 +19,7 @@ class User:
         if "error" in response_dict: return False
                 
         #self.username = response_dict["data"]['username']
-        self.user_uuid = response_dict["data"]['id']
+        self.user_uuid = response_dict['id']
         
         return True
     
