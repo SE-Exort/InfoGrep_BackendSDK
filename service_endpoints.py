@@ -36,6 +36,7 @@ video_host = os.environ.get("VIDEO_SERVICE_HOST", f"{localhost_url}:{video_port}
 video_api_url = ''
 
 #Elasticsearch Service
+es_service_schema = "https://"
 es_port = os.environ.get("ES_SERVICE_PORT", 9200)
 es_host = os.environ.get("ES_SERVICE_HOST", "localhost")
 es_username = os.environ.get("ES_SERVICE_USER", "elastic")

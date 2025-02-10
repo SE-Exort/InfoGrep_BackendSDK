@@ -9,9 +9,12 @@ from elastic_transport import (
     ConnectionError as EsConnectionError, 
 )
 
-from ..service_endpoints import es_port, es_host, es_password, es_username
+from ..service_endpoints import (
+    es_port, es_host, es_password, es_username, es_service_schema
+)
 
 class ElasticSearchConfig(BaseModel):
+    service_schema: str
     port: int
     username: str
     password: str
@@ -21,7 +24,7 @@ class LogstoreHandler(logging.StreamHandler):
     def __init__(self, es_config: ElasticSearchConfig):
         super().__init__()
 
-        es_url = f'http://{es_config.username}:{es_config.password}@{es_config.host}:{es_config.port}'
+        es_url = f'{es_config.service_schema}{es_config.username}:{es_config.password}@{es_config.host}:{es_config.port}'
         self.es_client = Elasticsearch(es_url, verify_certs=False)
         if not self.es_client.ping():
             raise EsConnectionError("Cannot reach Elasticsearch")
@@ -108,6 +111,7 @@ class Logger(logging.Logger):
 
         try:
             es_config = ElasticSearchConfig(
+                service_schema=es_service_schema,
                 port=es_port,
                 host=es_host,
                 username=es_username,
