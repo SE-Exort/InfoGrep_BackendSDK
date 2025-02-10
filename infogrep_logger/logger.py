@@ -22,7 +22,7 @@ class LogstoreHandler(logging.StreamHandler):
         super().__init__()
 
         es_url = f'http://{es_config.username}:{es_config.password}@{es_config.host}:{es_config.port}'
-        self.es_client = Elasticsearch(es_url)
+        self.es_client = Elasticsearch(es_url, verify_certs=False)
         if not self.es_client.ping():
             raise EsConnectionError("Cannot reach Elasticsearch")
 
