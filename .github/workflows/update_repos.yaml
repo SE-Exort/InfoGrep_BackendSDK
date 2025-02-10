@@ -6,11 +6,10 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  VIDEO_SERVICE_REPO: SE-Exort/InfoGrep-VideoService
   CHATROOM_SERVICE_REPO: SE-Exort/InfoGrep-ChatroomService
-  PARSING_SERVICE_REPO: SE-Exort/InfoGrep-ParsingService
   FM_SERVICE_REPO: SE-Exort/InfoGrep-FileManagementService
   AI_SERVICE_REPO: SE-Exort/InfoGrep-AIService
+  AUTH_SERVICE_REPO: SE-Exort/InfoGrep-AuthenticationService
 
 permissions:
   contents: read
@@ -19,7 +18,7 @@ permissions:
   id-token: write
 
 jobs:
-  video-service-update:
+  auth-service-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,7 +26,7 @@ jobs:
         with:
           submodules: 'recursive'
           token: ${{ secrets.CI_TOKEN }}
-          repository: ${{ env.VIDEO_SERVICE_REPO }}
+          repository: ${{ env.AUTH_SERVICE_REPO }}
       - name: Backend SDK Submodule Update
         run: |
           git submodule update --init --recursive
@@ -39,7 +38,7 @@ jobs:
           git add --all
           git commit -m "Updating Backend SDK submodule"
           git push
-
+  
   chatroom-service-update:
     runs-on: ubuntu-latest
     steps:
@@ -49,27 +48,6 @@ jobs:
           submodules: 'recursive'
           token: ${{ secrets.CI_TOKEN }}
           repository: ${{ env.CHATROOM_SERVICE_REPO }}
-      - name: Backend SDK Submodule Update
-        run: |
-          git submodule update --init --recursive
-          git submodule update --recursive --remote
-      - name: Commit Submodule Update
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add --all
-          git commit -m "Updating Backend SDK submodule"
-          git push
-
-  parsing-service-update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
-          token: ${{ secrets.CI_TOKEN }}
-          repository: ${{ env.PARSING_SERVICE_REPO }}
       - name: Backend SDK Submodule Update
         run: |
           git submodule update --init --recursive
