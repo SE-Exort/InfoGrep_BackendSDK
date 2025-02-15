@@ -41,3 +41,7 @@ es_port = os.environ.get("ES_SERVICE_PORT", 9200)
 es_host = os.environ.get("ES_SERVICE_HOST", "localhost")
 es_username = os.environ.get("ES_SERVICE_USER", "elastic")
 es_password = os.environ.get("ES_SERVICE_PASSWORD", "changeme")
+
+#Ollama Service
+ollama_service_port = "11434"
+ollama_service_host = os.environ.get("OLLAMA_SERVICE_HOST", f"{localhost_url}:{ollama_service_port}")
