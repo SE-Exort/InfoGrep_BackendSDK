@@ -9,6 +9,9 @@ class User:
     def __init__(self, token, headers={}) -> None:
         self.token = token
         self.headers = header_cleanup(headers)
+        self.user_uuid = ""
+        self.is_admin = False
+        
         if not self.is_valid():
             raise HTTPException(status_code= 401, detail="User or session cookie invalid") 
     
@@ -16,17 +19,18 @@ class User:
         response = requests.post(f'{URL}/check', json={'sessionToken': self.token}, headers=self.headers)
         response_dict = json.loads(response.text)        
 
-        if "error" in response_dict: return False
+        if response_dict["error"]: return False
                 
         #self.username = response_dict["data"]['username']
         self.user_uuid = response_dict['id']
-        
+        self.is_admin = response_dict['is_admin']
         return True
     
     def profile(self):
         return {
             #'username': self.username,
-            'user_uuid': self.user_uuid
+            'user_uuid': self.user_uuid,
+            'is_admin': self.is_admin
         }
 
 class Authentication:
