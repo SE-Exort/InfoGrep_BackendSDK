@@ -1,4 +1,4 @@
-import logging
+import logging, os
 from typing import Dict, Any
 from datetime import datetime, timezone
 
@@ -25,7 +25,16 @@ class LogstoreHandler(logging.StreamHandler):
         super().__init__()
 
         es_url = f'{es_config.service_schema}{es_config.username}:{es_config.password}@{es_config.host}:{es_config.port}'
-        self.es_client = Elasticsearch(es_url, verify_certs=False)
+
+        try:
+            if os.environ.get('ES_VERIFY_CERT') == "true":
+                cert_path = os.environ.get('ES_TLS_CERT_PATH')
+                self.es_client = Elasticsearch(es_url, verify_certs=True, ca_certs=cert_path)
+            else:
+                self.es_client = Elasticsearch(es_url, verify_certs=False)
+        except Exception as e:
+            raise EsConnectionError("Cannot reach Elasticsearch ", str(e))
+
         if not self.es_client.ping():
             raise EsConnectionError("Cannot reach Elasticsearch")
 
