@@ -4,8 +4,16 @@ import requests
 
 aiserviceurl = service_schema + ai_host + ai_apiurl
 
-def get_Response(chatroom_uuid, message, cookie, chat_model, embedding_model, provider, headers={}):
-    return requests.get(url = aiserviceurl + '/system_response', params={'chatroom_uuid': chatroom_uuid, 'message': message, 'cookie': cookie, 'chat_model': chat_model, 'embedding_model': embedding_model, 'provider': provider}, headers=header_cleanup(headers)).json()
+def get_Response(chatroom_uuid, history, message, sessionToken, chat_model, embedding_model, provider, headers={}):
+    json_body = {'history': history,
+                'chatroom_uuid': chatroom_uuid,
+                'message': message,
+                'sessionToken': sessionToken,
+                'chat_model': chat_model,
+                'embedding_model': embedding_model,
+                'provider': provider}
+    print(json_body)
+    return requests.post(url = aiserviceurl + '/system_response', json=json_body, headers=header_cleanup(headers)).json()
 
 def parse_postStartParsing(chatroom_uuid, file_uuid, filetype, cookie, headers={}):
     return requests.post(url = aiserviceurl + '/start_parsing', params={'chatroom_uuid': chatroom_uuid, 'file_uuid': file_uuid, 'filetype': filetype, 'cookie': cookie}, headers=header_cleanup(headers))
