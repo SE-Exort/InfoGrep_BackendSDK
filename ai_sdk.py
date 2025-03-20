@@ -4,14 +4,15 @@ import requests
 
 aiserviceurl = service_schema + ai_host + ai_apiurl
 
-def get_Response(chatroom_uuid, history, message, sessionToken, chat_model, embedding_model, provider, headers={}):
+def get_Response(chatroom_uuid, history, message, sessionToken, chat_model, embedding_model, chat_provider, embedding_provider, headers={}):
     json_body = {'history': history,
                 'chatroom_uuid': chatroom_uuid,
                 'message': message,
                 'sessionToken': sessionToken,
                 'chat_model': chat_model,
                 'embedding_model': embedding_model,
-                'provider': provider}
+                'chat_provider': chat_provider,
+                'embedding_provider': embedding_provider}
     print(json_body)
     return requests.post(url = aiserviceurl + '/system_response', json=json_body, headers=header_cleanup(headers)).json()
 
